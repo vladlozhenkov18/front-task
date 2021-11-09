@@ -2,15 +2,15 @@
   <div class="grid">
     <div
         class="box"
-        v-for:="product, index in products"
+        v-for:="group, index in groups"
         :key="index"
     >
       <DropDownHeader
         @click="toggle(index)"
-        :title="product.title"
+        :title="group.title"
       />
       <DropDownList   
-        :product="product"
+        :products="group.products"
         :ref="setItemRef"
       />
     </div>
@@ -28,7 +28,7 @@ export default {
     itemRefs: []
   }),
   computed: {
-    ...mapState(['products'])
+    ...mapState(['groups'])
   },
   methods: {
     ...mapActions(['getProducts']),

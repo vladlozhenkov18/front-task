@@ -6,6 +6,7 @@ export default createStore({
     products: [],
     cartItems: [],
     currency: 20,
+    groups: []
   },
 
   mutations: {
@@ -25,6 +26,9 @@ export default createStore({
       if(currency >= 20 && currency <= 80) {
         state.currency = currency;
       }
+    },
+    SET_GROUPS(state, groups) {
+      state.groups = groups;
     }
   },
   
@@ -50,6 +54,12 @@ export default createStore({
               selected: false
             }; 
         });
+        const unique = new Set(result.map(product => product.title));
+        const groups = Array.from(unique).map(title => ({
+          title, 
+          products: result.filter(product => product.title === title)
+        }));
+        commit('SET_GROUPS', groups);
         commit('SET_PRODUCTS', result)
       } catch(error) {
         console.log(error.message);
